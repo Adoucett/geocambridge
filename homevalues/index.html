@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>MA Statewide Property Map</title>
+	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'>
+	</script>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet'>
+	<style>
+	          body { margin:0; padding:0; }
+	          #map { position:absolute; top:0; bottom:0; width:100%; }
+	          
+	   img {
+	    position: absolute;
+	    top: 25px;
+	    left: 25px;
+	   }
+	   .imgA1 {
+	    z-index: 1;
+	   }
+
+	   #menu {
+	          background: #fff;
+	          position: absolute;
+	          z-index: 1;
+	          top: 60px;
+	          right: 10px;
+	          border-radius: 4px;
+	          width: 120px;
+	          border: 1px solid rgba(0,0,0,0.4);
+	          font-family: 'Open Sans', sans-serif;
+	      }
+
+	      #menu a {
+	          font-size: 13px;
+	          color: #404040;
+	          display: block;
+	          margin: 0;
+	          padding: 0px;
+	          padding: 10px;
+	          text-decoration: none;
+	          border-bottom: 1px solid rgba(0,0,0,0.25);
+	          text-align: center;
+	      }
+
+	      #menu a:last-child {
+	          border: none;
+	      }
+
+	      #menu a:hover {
+	          background-color: #f8f8f8;
+	          color: #404040;
+	      }
+
+	      #menu a.active {
+	          background-color: #3887be;
+	          color: #ffffff;
+	      }
+
+	      #menu a.active:hover {
+	          background: #3074a4;
+	      }
+	      
+	      
+	      
+	</style>
+</head>
+<body>
+	<p><img alt="" height="150" src="https://i.imgur.com/WPE2qGN.png" style="float: left;" width="400"></p><img class="imgA1" height="150" src="https://i.imgur.com/WPE2qGN.png" width="400"> 
+	<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.min.js'>
+	</script>
+	<link href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.2.0/mapbox-gl-geocoder.css' rel='stylesheet' type='text/css'>
+	<nav id="menu"></nav>
+	<div id='map'></div>
+	<script>
+	   mapboxgl.accessToken = 'pk.eyJ1IjoiYnJld3UxOCIsImEiOiJjamx3ZG14aTkxNTN4M3dwZWN0NG5yZnlyIn0.g9aQXKUM62g97Tq6LFV8KQ';
+	   var map = new mapboxgl.Map({
+	      container: 'map',
+	      style: 'mapbox://styles/adoucett/cjgchmy2w3r3o2slfqutbdn2g',
+	      center: [-71.294,42.275],
+	      zoom: 11.4
+	   });
+
+
+	   map.on('load', function () {
+	      
+	      
+	          //Add CR Lines//
+	      
+	       map.addSource('cr_lines', {
+	          type: 'vector',
+	          url: 'mapbox://adoucett.84zimgrg'
+	      });
+	      
+	      
+	      map.addLayer({
+	          'id': 'cr_lines',
+	          'type': 'line',
+	          'source': 'cr_lines',
+	          'source-layer': 'mbta_cr_lines-9kqvt8',
+	          'layout': {
+	              'visibility': 'visible',
+	              'line-join': 'round',
+	              'line-cap': 'round'
+	          },
+	          'paint': {
+	              'line-color': "#975D89",
+	           
+	           'line-width':{
+	    "base": 1,
+	    "stops": [
+	      [10, 3],
+	      [13, 4],
+	      [16, 8]
+	    ]},   
+
+	          'line-opacity':
+	          {
+	    "base": 1,
+	    "stops": [[8, 0], [10, 1]]
+	   },
+	          
+
+	          }
+	          
+	          
+	      });
+	      
+	      
+	      //Add Subway lines//
+
+	      map.addSource('mbta_lines', {
+	          type: 'vector',
+	          url: 'mapbox://adoucett.38x6w08m'
+	      });
+	      
+	      
+	      map.addLayer({
+	          'id': 'mbta_lines',
+	          'type': 'line',
+	          'source': 'mbta_lines',
+	          'source-layer': 'mbta_rapid_lines-c1m098',
+	          'layout': {
+	              'visibility': 'visible',
+	              'line-join': 'round',
+	              'line-cap': 'round'
+	          },
+	          'paint': {
+	              'line-color': {
+	    "base": 1,
+	    "type": "categorical",
+	    "property": "LINE",
+	    "stops": [
+	      ["RED", "#E02826"],
+	      ["GREEN", "#008345"],
+	      ["BLUE", "#0E4C90"],
+	      ["ORANGE", "#EF8B22"],
+	      ["SILVER", "#7B868C"]
+	    ]
+	   },
+	           
+	           'line-width':{
+	    "base": 1,
+	    "stops": [
+	      [10, 3],
+	      [13, 4],
+	      [16, 8]
+	    ]},   
+
+	          'line-opacity':
+	          {
+	    "base": 1,
+	    "stops": [[10, 0], [12, 1]]
+	   },
+	          
+
+	          }
+	          
+	          
+	      });
+	      
+	      //Add Subway Stations//
+	      
+	          map.addSource('mbta_stations', {
+	          type: 'vector',
+	          url: 'mapbox://adoucett.b7dtawp6'
+	      });
+	      
+	      
+	      map.addLayer({
+	          'id': 'mbta_stations',
+	          'type': 'circle',
+	          'source': 'mbta_stations',
+	          'source-layer': 'mbta_rapid_stations-cliq75',
+	          'layout': {
+	              'visibility': 'visible'
+	          },
+	          'paint': {
+	              'circle-radius': {
+	    "base": 1,
+	    "stops": [[11, 2], [16, 4]]
+	   },
+	              
+	              
+	              'circle-color': '#FFFFFF',
+	              
+	              'circle-opacity':{
+	    "base": 1,
+	    "stops": [[12, 0], [13, 1]]
+	   },
+	              'circle-stroke-width': {
+	    "base": 1,
+	    "type": "categorical",
+	    "property": "TERMINUS",
+	    "stops": [
+	      ["Y", 2],
+	      ["N", 0]
+	    ]
+	   }   ,
+	             'circle-stroke-opacity':{
+	                  "base": 1,
+	                  "stops": [[12, 0], [13, 1]]
+	                  } 
+	              
+	              
+	              
+	          }
+	          
+	      });
+	      
+	      //Add CR Stations///
+	      
+	      map.addSource('cr_stations', {
+	          type: 'vector',
+	          url: 'mapbox://adoucett.0iksqp7w'
+	      });
+	      
+	      
+	      map.addLayer({
+	          'id': 'cr_stations',
+	          'type': 'circle',
+	          'source': 'cr_stations',
+	          'source-layer': 'mbta_CR_stations-6yvdd1',
+	          'layout': {
+	              'visibility': 'visible'
+	          },
+	          'paint': {
+	              'circle-radius': {
+	                  "base": 1,
+	                  "stops": [[9, 2], [15, 5]]
+	                  },
+	              
+	              
+	              'circle-color': '#FFFFFF',
+	              'circle-opacity':{
+	                  "base": 1,
+	                  "stops": [[9, 0], [13, 1]]
+	                  },
+	              'circle-stroke-width': 1 ,
+	              'circle-stroke-opacity':{
+	                  "base": 1,
+	                  "stops": [[9, 0], [13, 1]]
+	                  },
+	                      
+	          }
+	          
+	      });
+	      
+	      
+	      
+	   });
+
+
+
+	   var toggleableLayerIds = [ 'mbta_lines', 'mbta_stations','cr_lines','cr_stations' ];
+
+	   var link = document.createElement('a');
+	   link.href = '#';
+	   link.className = 'active';
+	   link.textContent = "MBTA Layers On/Off";
+	   link.onclick = function (e) {
+	      for(var index in toggleableLayerIds) {
+	        var clickedLayer = toggleableLayerIds[index];
+	        e.preventDefault();
+	        e.stopPropagation();
+
+	        var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+	        if (visibility === 'visible') {
+	            map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+	            this.className = '';
+	        } else {
+	            this.className = 'active';
+	            map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+	        }
+	      }
+
+	   };
+	   var layers = document.getElementById('menu');
+	   layers.appendChild(link);
+
+
+
+
+
+
+
+
+	   map.addControl(new MapboxGeocoder({
+	      accessToken: mapboxgl.accessToken,
+
+
+	      country: 'US',
+	      bbox: [-73.54,41.211,-69.609,42.94],
+
+	      filter: function (item) {
+	          // returns true if item contains Massachusetts
+	          return item.context.map((i) => {
+	              // id is in the form {index}.{id} per https://github.com/mapbox/carmen/blob/master/carmen-geojson.md
+
+	           return (i.id.split('.').shift() === 'region' && i.text === 'Massachusetts');
+	         }).reduce((acc, cur) => {
+	             return acc || cur;
+	          });
+	      }
+	   }));
+	</script>
+</body>
+</html>

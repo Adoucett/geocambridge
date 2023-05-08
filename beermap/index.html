@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset='utf-8'>
+
+	<title>BrewMap USA</title>
+	<meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
+	<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'>
+	</script>
+	<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet'>
+	<style>
+	      body { margin:0; padding:0; }
+	       #map { position:absolute; top:0; bottom:0; width:100%; }
+	</style>
+</head>
+
+<body>
+	<style>
+	   #menu {
+	       background: #fff;
+	       position: absolute;
+	       z-index: 1;
+	       top: 10px;
+	       right: 10px;
+	       border-radius: 3px;
+	       width: 120px;
+	       border: 1px solid rgba(0,0,0,0.4);
+	       font-family: 'Open Sans', sans-serif;
+	   }
+
+	   #menu a {
+	       font-size: 13px;
+	       color: #404040;
+	       display: block;
+	       margin: 0;
+	       padding: 0;
+	       padding: 10px;
+	       text-decoration: none;
+	       border-bottom: 1px solid rgba(0,0,0,0.25);
+	       text-align: center;
+	   }
+
+	   #menu a:last-child {
+	       border: none;
+	   }
+
+	   #menu a:hover {
+	       background-color: #f8f8f8;
+	       color: #404040;
+	   }
+
+	   #menu a.active {
+	       background-color: #3887be;
+	       color: #ffffff;
+	   }
+
+	   #menu a.active:hover {
+	       background: #3074a4;
+	   }
+	   
+	   .legend {
+    background-color: #fff;
+    border-radius: 6px;
+    bottom: 30px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+    font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    padding: 15px;
+    position: absolute;
+    right: 10px;
+    z-index: 1;
+}
+
+.legend h4 {
+    margin: 0 0 10px;
+}
+
+.legend div span {
+    border-radius: 50%;
+    display: inline-block;
+    height: 10px;
+    margin-right: 5px;
+    width: 10px;
+}
+	   
+
+	</style>
+
+	<nav id="menu">
+	</nav>
+
+
+	<div id="map">
+	
+	
+	<div id='dot-legend' class='legend'>
+    <h4>Market Segment</h4>
+    <div><span style='background-color: #e38787'></span>Microbrewery</div>
+    <div><span style='background-color: #eefa7f'></span>Brewpub</div>
+    <div><span style='background-color: #40a07d'></span>Contract Brewery</div>
+    <div><span style='background-color: #0a3857'></span>Regional Brewery</div>
+    <div><span style='background-color: #6336dd'></span>Large Brewery</div>
+	<div><span style='background-color: #ffffff'></span>    </div>
+    <div><span style='background-color: #ded8d8'></span>Planned Brewery</div>
+
+</div>
+
+	
+	
+	
+	</div>
+	<script>
+	mapboxgl.accessToken = 'pk.eyJ1IjoiYnJld3UxOCIsImEiOiJjamx3ZG14aTkxNTN4M3dwZWN0NG5yZnlyIn0.g9aQXKUM62g97Tq6LFV8KQ';
+	var map = new mapboxgl.Map({
+	   container: 'map',
+	   style: 'mapbox://styles/adoucett/cjgpqtfyc002j2smdnzcgqnre',
+	   center: [-96, 40],
+	   zoom: 3.9
+	});
+
+
+
+	map.on('load', function() {
+
+	   map.addSource("brewery_point", {
+	       type: "geojson",
+	       // Point to GeoJSON data. This example visualizes all M1.0+ earthquakes
+	       // from 12/22/15 to 1/21/16 as logged by USGS' Earthquake hazards program.
+	       data: "https://raw.githubusercontent.com/Adoucett/geojson_ad/master/Brews4.geojson",
+	       cluster: true,
+	       clusterMaxZoom: 9, // Max zoom to cluster points on
+	       clusterRadius: 80 // Radius of each cluster when clustering points (defaults to 50)
+	   });
+
+
+//	 map.addSource('brewv', {
+//	     "type": "vector",
+//	     "url": "mapbox://adoucett.8r0c9ztr"
+//	 });
+
+
+
+
+	   map.addLayer({
+	       id: "clusters",
+	       type: "circle",
+	       source: "brewery_point",
+	     //  filter: ["has", "point_count"],
+	       paint: {
+	           "circle-color": [
+	               "step",
+	               ["get", "point_count"],
+	               "#00A0B0",
+	               100,
+	               "#EDC951",
+	               750,
+	               "#CC333F",
+	       1000,
+	       "#5F00BA"
+	           ],
+	           "circle-radius": [
+	               "step",
+	               ["get", "point_count"],
+	               25,
+	               100,
+	               30,
+	               750,
+	               40
+	           ],
+	           "circle-opacity": {
+	 "base": 1,
+	 "stops": [
+	   [4, .9],
+	   [6, 0.8],
+	   [10, 0]
+	   
+	 ]
+	},
+	           
+	       }
+	   });
+
+	   map.addLayer({
+	       id: "cluster-count",
+	       type: "symbol",
+	       source: "brewery_point",
+	       filter: ["has", "point_count"],
+	       layout: {
+	           "text-field": "{point_count_abbreviated}",
+	           "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+	           "text-size": 13
+	       }
+	   });
+
+	  map.addLayer({
+	       id: "unclustered-point",
+	       type: "circle",
+	       source: "brew_point",
+	   //    filter: ["!has", "point_count"],
+	       paint: {
+	           "circle-color": "#11b4da",
+	           "circle-radius": 4,
+	           "circle-stroke-width": 1,
+	           "circle-stroke-color": "#fff"
+	       }
+	   });
+	   
+	   
+	   //
+	   
+	   
+	 
+	   
+	   
+	   //
+	   
+	    var toggleableLayerIds = ['cluster-count', 'clusters'];
+
+	      var link = document.createElement('a');
+	      link.href = '#';
+	      link.className = 'active';
+	      link.textContent = "Clustering On/Off";
+	      link.onclick = function (e) {
+	         for(var index in toggleableLayerIds) {
+	           var clickedLayer = toggleableLayerIds[index];
+	           e.preventDefault();
+	           e.stopPropagation();
+
+	           var visibility = map.getLayoutProperty(clickedLayer, 'visibility');
+
+	           if (visibility === 'visible') {
+	               map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+	               this.className = '';
+	           } else {
+	               this.className = 'active';
+	               map.setLayoutProperty(clickedLayer, 'visibility', 'visible');
+	           }
+	         }
+
+	      };
+	      var layers = document.getElementById('menu');
+	      layers.appendChild(link);
+	   
+	var nav = new mapboxgl.NavigationControl();
+	map.addControl(nav, 'top-left');
+	   
+	   
+//	   var zoomThreshold = 10;
+	   
+//  var dotLegendEl = document.getElementById('dot-legend');
+//   map.on('zoom', function() {
+//    if (map.getZoom() < zoomThreshold) {
+//       dotLegendEl.style.display = 'block';
+//    } else {
+//        stateLegendEl.style.display = 'none';
+//        dotLegendEl.style.display = 'none';
+
+//    }
+	
+//   });   
+	   
+	   
+	   
+	   
+	   
+	   
+	});
+	</script>
+</body>
+</html>

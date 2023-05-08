@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Geocambridge Map Gallery</title>
+		<meta name="description" content="A full image reveal effect with thumbnail sliding." />
+		<meta name="keywords" content="maps, gallery, display, GIS" />
+		<meta name="author" content="Aaron Doucett (via Codrops)" />
+		<link rel="shortcut icon" href="favicon.ico">
+		<link rel="stylesheet" type="text/css" href="css/base.css" />
+		<script>document.documentElement.className="js";var supportsCssVars=function(){var e,t=document.createElement("style");return t.innerHTML="root: { --tmp-var: bold; }",document.head.appendChild(t),e=!!(window.CSS&&window.CSS.supports&&window.CSS.supports("font-weight","var(--tmp-var)")),t.parentNode.removeChild(t),e};supportsCssVars()||alert("Please view this demo in a modern browser that supports CSS Variables.");</script>
+	</head>
+	<body class="loading">
+		<svg class="hidden">
+			<symbol id="icon-arrow" viewBox="0 0 24 24">
+				<title>arrow</title>
+				<polygon points="6.3,12.8 20.9,12.8 20.9,11.2 6.3,11.2 10.2,7.2 9,6 3.1,12 9,18 10.2,16.8 "/>
+			</symbol>
+			<symbol id="icon-drop" viewBox="0 0 24 24">
+				<title>drop</title>
+				<path d="M17.218,2.268L2.477,8.388C2.13,8.535,2.164,9.05,2.542,9.134L9.33,10.67l1.535,6.787c0.083,0.377,0.602,0.415,0.745,0.065l6.123-14.74C17.866,2.46,17.539,2.134,17.218,2.268 M3.92,8.641l11.772-4.89L9.535,9.909L3.92,8.641z M11.358,16.078l-1.268-5.613l6.157-6.157L11.358,16.078z"></path>
+			</symbol>
+			<symbol id="icon-plus" viewBox="0 0 25 24">
+				<title>plus</title>
+				<path d="M13.568 11.216h11.216v1.568H13.568V24H12V12.784H.784v-1.568H12V0h1.568v11.216z"/>
+			</symbol>
+			<symbol id="icon-arrowdown" viewBox="0 0 12 25">
+				<title>arrow down</title>
+				<path d="M4.916.3v21.017l-3.563-3.564L.25 18.856 5.7 24.3l5.45-5.444-1.102-1.103-3.564 3.564V.3z"/>
+			</symbol>
+		</svg>
+		<main>
+			<div class="message">View on a larger screen to see the effect</div>
+			<!-- Grid lines -->
+			<div class="grid grid--deco">
+				<div class="grid__box"></div>
+				<div class="grid__box"></div>
+				<div class="grid__box"></div>
+				<div class="grid__box"></div>
+				<div class="grid__box"></div>
+			</div><!--/grid--deco-->
+			<!-- Outer grid (header, title, etc.) -->
+			<div class="grid grid--outer">
+				<header class="codrops-header">
+					<div class="codrops-links">
+						<a class="codrops-icon codrops-icon--prev" href="https://geocambridge.com" title="Geocambridge Home"><svg class="icon icon--arrow"><use xlink:href="#icon-arrow"></use></svg></a>
+						<a class="codrops-icon codrops-icon--drop" href="https://mapbox.com" title="Back to the article"><svg class="icon icon--drop"><use xlink:href="#icon-drop"></use></svg></a>
+					</div>
+					<h1 class="codrops-header__title">Map Gallery</h1>
+				</header>
+				<div class="title-wrap">
+					<h2 class="title">Geocambridge</h2>
+					<span class="subtitle">selected projects</span>
+					<span class="year">2018</span>
+				</div>
+				<a href="https://github.com/adoucett/" class="github">GitHub</a>
+				<div class="side">
+					<span class="side__content">Designed in Cambridge, Massachusetts</span>
+					<span class="side__content">Made by Aaron Doucett</span>
+				</div>
+			</div><!--/grid--outer-->
+			<!-- Full view container -->
+			<div class="fullview">
+				<div class="fullview__item" style="background-image: url(img/1.jpg)">
+					<span class="fullview__item-number">01</span>
+					<div class="fullview__item-titlewrap">
+						<h3 class="fullview__item-title">Mapbox</h3>
+						<p class="fullview__item-description">I have been developing with Mapbox as a tool for data visualization since 2017. Mapbox is a fluid platform for displaying and interacting with geospatial data. I have several examples of Mapbox hosted maps here at Geocambridge. </p>
+						<span class="fullview__item-more">more</span>
+					</div>
+				</div>
+				<div class="fullview__item" style="background-image: url(img/2.jpg)">
+					<span class="fullview__item-number">02</span>
+					<div class="fullview__item-titlewrap">
+						<h3 class="fullview__item-title"> <!--text goes here--> </h3>
+						<p class="fullview__item-description"> <!--text goes here--> </p>
+						<span class="fullview__item-more">more</span>
+					</div>
+				</div>
+				<div class="fullview__item" style="background-image: url(img/3.jpg)">
+					<span class="fullview__item-number">03</span>
+					<div class="fullview__item-titlewrap">
+						<h3 class="fullview__item-title">Emergency Response</h3>
+						<p class="fullview__item-description">Rapid activation of NOAA and FEMA resources to calculate property damage after Hurricane Harvey in 2017</p>
+						<span class="fullview__item-more">more</span>
+					</div>
+				</div>
+				<div class="fullview__item" style="background-image: url(img/4.jpg)">
+					<span class="fullview__item-number">04</span>
+					<div class="fullview__item-titlewrap">
+						<h3 class="fullview__item-title">Planet Alpha</h3>
+						<p class="fullview__item-description">Developing the first nationwide ARB and FluxNet comparison map</p>
+						<span class="fullview__item-more">more</span>
+					</div>
+				</div>
+				<h3 class="fullview__title">Geocambridge</h3>
+			</div><!--/fullview-->
+			<!-- Revealer element -->
+			<div class="revealer"></div>
+			<!-- Thumbs grid -->
+			<div class="grid grid--thumbs">
+				<div class="grid__item" data-revealer-color="#38a8d8">
+					<h3 class="grid__item-title"><span>Mapbox</span></h3>
+		
+					<span class="grid__item-number"><span>01</span></span>
+					<div class="grid__item-imgwrap">
+						<img class="grid__item-img" src="img/thumb1.jpg" alt="Some image" />
+						<div class="grid__item-bg" style="background-image: url(img/thumb1.jpg)"></div>
+					</div>
+				</div>
+				<div class="grid__item" data-revealer-color="#84be67">
+					<h3 class="grid__item-title"><span>MA Towns Map</span></h3>
+					<span class="grid__item-number"><span>02</span></span>
+					<div class="grid__item-imgwrap">
+						<img class="grid__item-img" src="img/thumb2.jpg" alt="Some image" />
+						<div class="grid__item-bg" style="background-image: url(img/thumb2.jpg)"></div>
+					</div>
+				</div>
+				<div class="grid__item" data-revealer-color="#478589">
+					<h3 class="grid__item-title"><span>Hurricane Response</span></h3>
+					<span class="grid__item-number"><span>03</span></span>
+					<div class="grid__item-imgwrap">
+						<img class="grid__item-img" src="img/thumb3.jpg" alt="Some image" />
+						<div class="grid__item-bg" style="background-image: url(img/thumb3.jpg)"></div>
+					</div>
+				</div>
+				<div class="grid__item" data-revealer-color="#996f3f">
+					<h3 class="grid__item-title"><span>Fluxnet Analysis</span></h3>
+					<span class="grid__item-number"><span>04</span></span>
+					<div class="grid__item-imgwrap">
+						<img class="grid__item-img" src="img/thumb4.jpg" alt="Some image" />
+						<div class="grid__item-bg" style="background-image: url(img/thumb4.jpg)"></div>
+					</div>
+				</div>
+				<div class="grid__item grid__item--more">
+					<button class="grid__toggle">
+						<span class="grid__toggle-inner grid__toggle-more">
+							<span class="grid__toggle-text">More Maps</span>
+							<svg class="grid__toggle-icon grid__toggle-icon--more"><use xlink:href="#icon-plus"></use></svg>
+						</span>
+						<span class="grid__toggle-inner grid__toggle-back">
+							<span class="grid__toggle-text">back</span>
+							<svg class="grid__toggle-icon"><use xlink:href="#icon-arrowdown"></use></svg>
+						</span>
+					</button>
+				</div>
+			</div><!--/grid--thumbs-->
+		</main>
+		<script src="js/imagesloaded.pkgd.min.js"></script>
+		<script src="js/TweenMax.min.js"></script>
+		<script src="js/demo.js"></script>
+	</body>
+</html>

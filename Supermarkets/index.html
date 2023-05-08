@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8' />
+<title>Supermarket Map - New England</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+<style>
+body { margin:0; padding:0; }
+#map { position:absolute; top:0; bottom:0; width:100%; }
+
+     //	   img {
+//	    position: absolute;
+//	    bottom: 35px;
+//	    right: 15px;
+//	   }
+//	   .imgA1 {
+//	    z-index: 1;
+//	   }
+
+
+
+
+</style>
+</head>
+<body>
+ 
+
+ 
+ //<img class="imgA1" height="93" src="" width="150">// 
+ 
+
+ <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.0/mapbox-gl-geocoder.min.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v3.1.0/mapbox-gl-geocoder.css' type='text/css' />
+
+<div id='map'></div>
+
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiYWRvdWNldHQtdGRjIiwiYSI6ImNqcjd1YnJ4MTA5cDczeWxmNjFtcTZmZngifQ.54_VV9UPXLoO8azqZreCCw';
+ 
+// Set bounds
+var bounds = [
+[-73.9752645983, 40.9228287069], // Southwest coordinates
+[-69.8614919676, 43.1371047173]  // Northeast coordinates
+];
+ 
+ 
+ //[[[,],[-69.8614919676,40.9228287069],[,],[-73.9752645983,43.1371047173],[-73.9752645983,40.9228287069]]]
+ 
+var map = new mapboxgl.Map({
+container: 'map',
+style: 'mapbox://styles/adoucett-tdc/cjrs9dv5j8zo42sml52la6vdn',
+center: [-71.437890, 42.321039],
+zoom: 9,
+maxZoom: 14.4,
+maxBounds: bounds // Sets bounds as max
+});
+
+
+
+
+
+//geocode
+map.addControl(new MapboxGeocoder({
+accessToken: mapboxgl.accessToken,
+ 
+// limit results to usa
+countries: 'us',
+ 
+// further limit results to the geographic bounds 
+bbox: [-73.98, 40.92, -69.86, 43.14],
+ 
+}));
+
+
+
+
+
+
+
+map.addControl(new mapboxgl.NavigationControl());
+
+
+</script>
+
+
+
+ 
+</body>
+</html>
